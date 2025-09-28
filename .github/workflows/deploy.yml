@@ -25,11 +25,11 @@ jobs:
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4
         with:
-          server: ${{ secrets.FTP_SERVER }}     # 185.102.21.10
+          server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp                         # <-- FTP (nie sftp, nie ftps)
+          protocol: ftp
           port: 21
-          local-dir: dist/                      # uploaduje obsah buildu
-          server-dir: public_html/              # pri FTP je docroot zvyčajne public_html/
-          # dangerous-clean-slate: true         # voliteľne: vymaže cieľ pred uploadom
+          local-dir: dist/
+          server-dir: public_html/
+
