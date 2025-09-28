@@ -29,6 +29,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           sftp_only: true
           delete_remote_files: false
-          local_path: ./dist/                      # bez **, daj celý priečinok
-          remote_path: /public_html/               # podľa tvojho WebFTP
+          local_path: ./dist/*         # obsah dist
+          remote_path: ./              # si už v docroote
+
 
