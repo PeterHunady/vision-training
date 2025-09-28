@@ -23,7 +23,7 @@ jobs:
         run: npm run build
 
       - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4   # <— pripnutý konkrétny release
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
@@ -31,5 +31,4 @@ jobs:
           protocol: ftp
           port: 21
           local-dir: dist/
-          server-dir: public_html/
-
+          server-dir: ./
