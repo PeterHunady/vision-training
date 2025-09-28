@@ -1,4 +1,4 @@
-name: Deploy to Endora via SFTP
+name: Deploy to Endora (FTP)
 
 on:
   push:
@@ -8,11 +8,13 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: "23.x"
+          node-version: "23"
 
       - name: Install deps
         run: npm ci
@@ -20,16 +22,14 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy via SFTP
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4
         with:
-          server:   ${{ secrets.FTP_SERVER }}     # 185.102.21.10
-          port:     222
+          server: ${{ secrets.FTP_SERVER }}     # 185.102.21.10
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          sftp_only: true
-          delete_remote_files: false
-          local_path: ./dist/*         # obsah dist
-          remote_path: ./              # si už v docroote
-
-
+          protocol: ftp                         # <-- FTP (nie sftp, nie ftps)
+          port: 21
+          local-dir: dist/                      # uploaduje obsah buildu
+          server-dir: public_html/              # pri FTP je docroot zvyčajne public_html/
+          # dangerous-clean-slate: true         # voliteľne: vymaže cieľ pred uploadom
