@@ -24,8 +24,11 @@ jobs:
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           server:   ${{ secrets.FTP_SERVER }}     # 185.102.21.10
-          port:     222                           # SFTP port podľa Endory
+          port:     222
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          localPath:  dist/*
-          remotePath: /web/                       # koreň webu
+          local_path: ./dist/**                   # čo uploadovať (výstup buildu)
+          remote_path: /web/                      # cieľ na Endore
+          sftp_only: true
+          delete_remote_files: false              # nechaj false, kým nechceš plný wipe
+
